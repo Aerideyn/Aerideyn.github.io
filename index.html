@@ -1,8 +1,8 @@
-<!DOCTYPE html>
-<html>
+<!doctype html>
+<html lang="en">
 	<head>
 		<link rel="stylesheet" href="main.css">
-		<h1> Kerbal Propeller Calculator</h1>
+		<h1> Kerbal Space Program Propeller Performance Calculator</h1>
 	</head>
 	<body>
 		<div id="app">
@@ -13,60 +13,52 @@
 				</tr>
 				<hr>
 				<tr>
-					<td>
-						<select v-model="selectedPlanet">
-							<option v-for="planet in planets" v-bind:value="planet">{{planet.name}}</option>
-						</select> 
-					</td>
-					<td>
-						<select v-model="selectedPropeller">
-							<option v-for="prop in propellers" v-bind:value="prop">{{prop.name}}</option>
-						</select>
-					</td>
+					<td><select v-model="selectedPlanet"><option v-for="planet in planets" v-bind:value="planet">{{planet.name}}</option></select></td>
+					<td><select v-model="selectedPropeller"><option v-for="prop in propellers" v-bind:value="prop">{{prop.name}}</option></select></td>
 				</tr>
-				<tr>
-					<td>
-						<div id="PressureCurve" style="width:600px;height:400px;"></div>
-						<div id="TempCurve" style="width:600px;height:400px;"></div>
-						<div id="DensityCurve" style="width:600px;height:400px;"></div>	
-					</td>
-					<td>
-						<div id="LiftCurve" style="width:600px;height:400px;"></div>
-						<div id="DragCurve" style="width:600px;height:400px;"></div>
-						<div id="LDRatioCurve" style="width:600px;height:400px;"></div>	
-					</td>			
-				</tr>
-			</table>
-			<hr>
-			<table style="width:100%">
 				<tr>
 					<th>Rotor</th>
 					<th>Number of Propellers</th>
 				</tr>
 				<tr>
-					<td>
-						<select v-model="selectedRotor">
-							<option v-for="rotor in rotors" v-bind:value="rotor">{{rotor.name}}</option>
-						</select>
-					</td>
-					<td>
-						<input v-model.number="numProps" type="number">
-					</td>
+					<td><select v-model="selectedRotor"><option v-for="rotor in rotors" v-bind:value="rotor">{{rotor.name}}</option></select></td>
+					<td><input v-model.number="numberOfPropellers" type="number"></td>
+				</tr>
+				<tr>
+					<th>Rotor RPM setting</th>
+					<th>Angle of attack setting</th>
+				</tr>
+				<tr>
+					<td><input v-model.number="rpmSetting" type="number"></td>
+					<td><input v-model.number="aoaSetting" type="number"></td>
 				</tr>
 				<tr>
 					<td>
-						<div><p>Max Torque: {{selectedRotor.torque}} kN, Mass: {{selectedRotor.mass}} kg</p></div>
-						<div id="MaxTorque" style="width:600px;height:400px;"></div>	
+						<div id="AtmospherePlot" style="width:600px;height:400px;"></div>
 					</td>
 					<td>
-						<div id="Thrust" style="width:600px;height:400px;"></div>
+						<div id="BladeAeroPlot" style="width:600px;height:400px;"></div>
+					</td>			
+				</tr>
+			</table>
+			<hr>
+			<p>Max Torque: {{selectedRotor.torque}} kN, Mass: {{selectedRotor.mass}} kg</p>	
+			<table style="width:100%">
+				<tr>
+					<td>
+						<div id="MaxAoA" style="width:600px;height:400px;"></div>
+						<div id="PropPitchSetting" style="width:600px;height:400px;"></div>		
+					</td>
+					<td>
+						<div id="MaxThrust" style="width:600px;height:400px;"></div>
+						<div id="ReqTorque" style="width:600px;height:400px;"></div>
 					</td>
 				</tr>
 			</table>
 		</div>
 	</body>
-	<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js" type="text/javascript"></script>
-	<script src="https://cdn.plot.ly/plotly-latest.min.js" type="text/javascript"></script>
+	<script src="vue.min.js" type="text/javascript"></script>
+	<script src="plotly.js" type="text/javascript"></script>
 	<script src="aeroCurves.js" type="text/javascript"></script>
 	<script src="atmoCurves.js" type="text/javascript"></script>
 	<script src="aeroPlotter.js" type="text/javascript"></script>
